@@ -1,0 +1,49 @@
+CelesteHaptic 1.0 — local validation, 2026-11-15
+
+Environment
+- macOS 27.0.1, Apple M4.
+- Vanilla Steam Celeste 1.4.0.0, bundled Intel Mono/FNA runtime.
+- DualSense attached over USB for this session.
+
+Passed
+- Universal arm64/x86_64 native bridge build with -Wall -Wextra -Werror.
+- Self-contained macOS arm64 and x64 installers build and run locally.
+- Eight synthesized effects: finite, limited stereo output, silence when idle,
+  exact expiration, Half intensity, repeated continuous events, bounded voices,
+  invalid-input handling, gain/peak limits.
+- Managed hooks against the actual game types: rumble enums, Half and Off,
+  specific-strength calls, Climb merging, disconnected fallback with Off.
+- Installer on temporary game copies: 184 rumble hooks, four SDL motor guards,
+  reinstall, status, byte-exact original restoration, repeated uninstall,
+  refusal to overwrite externally changed game files.
+- Native self-test: actuator routing, silent speaker channels, clipping,
+  nonfinite-input handling, underrun silence.
+- Independent Bluetooth encoder checks: report headers, sequence/counter wrap,
+  CRC32, stereo isolation, 48 kHz -> 3 kHz rate, filtering/alias rejection,
+  fragmented resampling. This backend is reused from SilkHaptic, where USB,
+  Bluetooth, and connection switching were previously user-tested in both
+  Hollow Knight games.
+- Real adapter -> native companion -> USB integration: all eight effect kinds
+  queued by the managed hook and PCM sent to the actuator output. Example run:
+  71,520 received frames; 70,976 rendered frames; zero dropped frames.
+  The final in-flight/silent tail may be discarded during shutdown.
+- Automatic native companion start and clean shutdown in the runtime harness.
+- Final build installed into the user's Celeste with a verified original backup.
+- Actual Steam launch reaches the title screen, initializes the hooks, starts
+  the companion, and connects to USB automatically. Metal rendering and the
+  existing Metal HUD launch options also remain functional.
+
+Not yet confirmed
+- Subjective feel and intensity during the user's Celeste gameplay.
+- Live Bluetooth gameplay/reconnection in Celeste specifically. This session
+  tested the Bluetooth encoder, not a new physical wireless play session.
+- Intel Mac hardware, Everest, non-Steam installations, other controllers,
+  and macOS versions other than the local environment above.
+
+Distribution
+- Release default MasterGain is 1.4, matching the user-requested stronger setting.
+- Contains the adapter, universal native companion, self-contained installers,
+  source, test tools, documentation, and dependency licenses.
+- Contains no Celeste.exe, FNA.dll, Steamworks.NET.dll, game assets, saves, or logs.
+- Installer modifies the user's own Celeste.exe and stores a verified backup
+  locally. Uninstaller restores the original; game-update conflicts are refused.

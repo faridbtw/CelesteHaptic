@@ -4,7 +4,7 @@ root=pathlib.Path(__file__).resolve().parents[1]
 release=root/'releases';release.mkdir(exist_ok=True)
 output=release/'CelesteHaptic-macOS-v1.0.zip'
 files=[]
-for name in ['README.md','LICENSE','VALIDATION.txt','build.sh','ThirdParty','src','tests','tools']:
+for name in ['README.md','LICENSE','VALIDATION.txt','build.sh','assets','ThirdParty','src','tests','tools']:
     path=root/name
     files.extend([path] if path.is_file() else [p for p in path.rglob('*') if p.is_file() and not {'bin','obj','__pycache__'}.intersection(p.relative_to(root).parts)])
 files.extend(root.glob('*.command'))

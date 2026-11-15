@@ -1,67 +1,119 @@
-# CelesteHaptic
+<p align="center">
+  <img src="assets/celestehaptic-banner.png" alt="CelesteHaptic — DualSense haptics for macOS" width="100%">
+</p>
 
-DualSense haptics for Celeste on macOS, through USB-C or Bluetooth.
+<p align="center">
+  <a href="https://github.com/faridbtw/CelesteHaptic/releases/latest/download/CelesteHaptic-macOS-v1.0.zip"><img src="assets/download-macos.svg" alt="Download for macOS" width="248" height="48"></a>
+</p>
 
-Dashes get a crisp sweep, landings get a short thump, and climbing and gliding get their own textures. CelesteHaptic turns the game's existing vibration events into stereo waveforms for the controller's haptic actuators. These are custom effects, not an official PS5 waveform library.
+<p align="center">Distinct DualSense effects for Celeste’s dashes, landings, climbing, and more.<br>Connect your controller, launch the game, and feel the difference.</p>
 
-## Install
+## Ready in three steps
 
-[Download the macOS ZIP](https://github.com/faridbtw/CelesteHaptic/releases/latest/download/CelesteHaptic-macOS-v1.0.zip) and unzip it first.
+1. **Download and unzip** the macOS release above.
+2. **Quit Celeste**, then open `Install.command`.
+3. **Connect your DualSense** and launch Celeste from Steam.
 
-1. Quit Celeste.
-2. Open **Install.command**.
-3. Connect your DualSense and launch Celeste from Steam as usual.
+Keep vibration enabled in the game. Everything starts automatically with Celeste and closes when you quit.
 
-Keep vibration enabled in Celeste's options. The companion starts and stops with the game. No extra launch options, controller driver, DSX, or Wine are required.
+Works with **vanilla Celeste on macOS**, on Apple Silicon and Intel. Tested with Steam version **1.4.0.0**. Everest is not supported.
 
-This version supports the vanilla macOS Steam build, tested with Celeste 1.4.0.0. It does not install into Everest. Apple Silicon and Intel installers are included; Celeste itself still uses its bundled Intel runtime.
+## Choose your connection
 
-For Bluetooth, unplug USB and connect **DualSense Wireless Controller** in macOS Bluetooth settings. The native companion supports reconnection and switching between USB and Bluetooth. When the companion is unavailable, Celeste keeps its normal vibration.
+| USB-C | Bluetooth |
+| :--- | :--- |
+| Plug the controller into your Mac. | Unplug USB, then connect **DualSense Wireless Controller** in macOS Bluetooth settings. |
+| The companion selects the USB connection automatically. | Make sure it says **Connected**, then launch the game. |
 
-## Adjust the strength
+No DSX, Wine, or extra controller driver is needed. If the companion loses its connection, the game falls back to ordinary vibration.
 
-Celeste's **Off / Half / On** vibration setting still applies. Haptics stop when the game is paused or loses focus.
+## What you’ll feel
 
-For an additional adjustment, quit the game and open this file in your game folder:
+| In the game | In your hands |
+| :--- | :--- |
+| **Dash** | A short, crisp sweep. |
+| **Land or collide** | A quick, weighty thump. |
+| **Climb or glide** | A lighter, continuous texture. |
+| **Collect a refill** | A pair of pulses across the grips. |
 
+The effects are made specifically for this mod from Celeste’s existing rumble events.
+
+## Make it feel right
+
+Celeste’s **Off / Half / On** vibration setting still applies. Haptics stop when you pause or switch away from the game.
+
+For more control, quit Celeste and open `CelesteHaptic/settings.ini` in the game folder:
+
+```ini
+Enabled=true
+MasterGain=1.4
 ```
-CelesteHaptic/settings.ini
-```
 
-Set `MasterGain=0.5` for gentler effects, `MasterGain=1.4` for the default, or up to `MasterGain=2.0` for stronger effects. `Enabled=false` restores ordinary rumble while keeping the adapter installed. Restart Celeste after changing the file.
+| Gentler | Default | Strongest |
+| :---: | :---: | :---: |
+| `0.5` | `1.4` | `2.0` |
 
-## Remove
+Save and restart the game. Set `Enabled=false` to use ordinary rumble instead.
 
-Quit Celeste and open **Uninstall.command**. The installer keeps a verified copy of your original `Celeste.exe` in `CelesteHaptic/backups` and restores that exact file. Saves and game settings are retained. It refuses to overwrite game files that changed after installation.
+## Easy to remove
 
-Steam's **Verify integrity of game files** also restores the original game assembly. After a game update, verify the files first, keep your backups, remove the old `CelesteHaptic/install.json`, then run the installer again.
+Quit Celeste and open **`Uninstall.command`**. It restores the verified original game file and keeps your saves and settings.
 
-For a custom Steam library, drag the game folder into a Terminal command after the installer path:
+<details>
+<summary><strong>Controller tests and troubleshooting</strong></summary>
+
+Quit the game and open **`Test Haptics.command`**. You should feel the left grip, then the right. For a wireless check, unplug USB, connect Bluetooth, and open **`Test Bluetooth Haptics.command`**.
+
+If effects are silent:
+
+- Check Celeste’s vibration setting and your controller’s connection in macOS.
+- Try disabling Steam Input for Celeste.
+- Close other controller utilities that might compete for the same connection.
+
+The logs are in the game’s `CelesteHaptic` folder: `CelesteHaptic.log` and `HapticsBridge.log`.
+
+USB output and Steam startup have been verified locally. The Bluetooth transport is shared with SilkHaptic and its encoder passes automated tests; live Bluetooth gameplay in Celeste still needs confirmation. Full results are in [VALIDATION.txt](VALIDATION.txt).
+
+</details>
+
+<details>
+<summary><strong>Custom game folders and game updates</strong></summary>
+
+For another Steam library, pass the Celeste game folder to the installer in Terminal:
 
 ```sh
 "/path/to/CelesteHaptic/Install.command" "/path/to/steamapps/common/Celeste"
 ```
 
-## Check the controller
+The installer backs up the original `Celeste.exe` in `CelesteHaptic/backups` and refuses to overwrite files changed by something else.
 
-Quit the game, then open **Test Haptics.command**. You should feel the left grip, then the right. For wireless testing, unplug USB, connect Bluetooth, and open **Test Bluetooth Haptics.command**.
+Steam’s **Verify integrity of game files** also restores the original game assembly. After a game update, verify the files first, keep your backups, remove the old `CelesteHaptic/install.json`, then run the installer again.
 
-If effects are silent, first check Celeste's vibration setting and the macOS connection. Try disabling Steam Input for Celeste and close other controller utilities if they compete for the same controller.
+</details>
 
-Logs are in the game's `CelesteHaptic` folder: `CelesteHaptic.log` and `HapticsBridge.log`.
+<details>
+<summary><strong>Source and building</strong></summary>
 
-## Build and implementation
+The adapter intercepts 184 rumble call sites in the tested build and keeps the original rumble methods as a fallback. A stereo mixer generates 48 kHz waveforms and streams them to the native companion on localhost port 48113. Four motor-report guards keep ordinary SDL rumble from interrupting the replacement.
 
-The adapter intercepts 184 rumble call sites in the tested build and leaves the original rumble methods available as a fallback. It selects effects from each call site's context, mixes at 48 kHz stereo, and streams float PCM over localhost port 48113. Four motor-report guards keep SDL rumble from interrupting the replacement while it is connected.
+The native transport comes from [SilkHaptic](https://github.com/faridbtw/SilkHaptic). USB uses the DualSense actuator audio channels. Bluetooth uses direct HID waveform packets with a filtered 3 kHz stream. Celeste itself uses its bundled Intel runtime.
 
-The native transport comes from [SilkHaptic](https://github.com/faridbtw/SilkHaptic). USB uses the DualSense's actuator audio channels; Bluetooth uses direct HID waveform packets and a filtered 3 kHz stream. Effect synthesis and the Celeste adapter live in `src/Adapter`; the reversible Mono.Cecil installer lives in `src/Installer`.
+The adapter and effects are in [`src/Adapter`](src/Adapter), the transport is in [`src/Bridge`](src/Bridge), and the reversible Mono.Cecil installer is in [`src/Installer`](src/Installer).
 
-To build, install Mono (for `csc`), the .NET 8 SDK, and the Xcode command-line tools. Run:
+To build, install Mono for `csc`, the .NET 8 SDK, and Xcode command-line tools, then run:
 
 ```sh
 ./build.sh
 ```
 
-`CELESTE_GAME` selects a custom game folder; `DOTNET_EXE` selects a specific SDK executable. Only your local build reads the game's assemblies. The download contains no Celeste game files or assets.
+`CELESTE_GAME` selects a custom game folder; `DOTNET_EXE` selects a specific SDK executable. Run the checks with `python3 tests/run_tests.py`; add `--controller` for a hardware test with Celeste closed.
 
-Validation results and remaining limits are recorded in [VALIDATION.txt](VALIDATION.txt). Source is MIT licensed; bundled dependency licenses are in `ThirdParty`. Celeste belongs to its creators. DualSense is a Sony trademark. This is an independent community mod.
+These are custom effects, not an official PS5 waveform library. No Celeste game files or assets are included in the download.
+
+</details>
+
+---
+
+[MIT license](LICENSE) · [Third-party licenses](ThirdParty) · [Banner credits](assets/README.md)
+
+<sub>Celeste belongs to its creators. DualSense is a Sony trademark. CelesteHaptic is an independent community mod.</sub>

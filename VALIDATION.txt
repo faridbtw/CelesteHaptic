@@ -44,6 +44,6 @@ Distribution
 - Release default MasterGain is 1.4, matching the user-requested stronger setting.
 - Contains the adapter, universal native companion, self-contained installers,
   source, test tools, documentation, and dependency licenses.
-- Contains no Celeste.exe, FNA.dll, Steamworks.NET.dll, game assets, saves, or logs.
+- Contains no Celeste.exe, FNA.dll, Steamworks.NET.dll, extracted gameplay assets, saves, or logs.
 - Installer modifies the user's own Celeste.exe and stores a verified backup
   locally. Uninstaller restores the original; game-update conflicts are refused.

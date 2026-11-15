@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/celestehaptic-banner.png" alt="CelesteHaptic — DualSense haptics for macOS" width="100%">
+  <img src="assets/celestehaptic-game-mountain-banner.png" alt="CelesteHaptic — DualSense haptics for macOS" width="100%">
 </p>
 
 <p align="center">
@@ -108,7 +108,7 @@ To build, install Mono for `csc`, the .NET 8 SDK, and Xcode command-line tools, 
 
 `CELESTE_GAME` selects a custom game folder; `DOTNET_EXE` selects a specific SDK executable. Run the checks with `python3 tests/run_tests.py`; add `--controller` for a hardware test with Celeste closed.
 
-These are custom effects, not an official PS5 waveform library. No Celeste game files or assets are included in the download.
+These are custom effects, not an official PS5 waveform library. No game assemblies or extracted gameplay assets are included in the download.
 
 </details>
 
